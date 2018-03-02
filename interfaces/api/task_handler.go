@@ -6,21 +6,20 @@ import (
 
 	"github.com/shotat/ggg/application/input"
 	"github.com/shotat/ggg/application/usecase"
-	"github.com/shotat/ggg/infrastructure/persistence/memory"
 )
 
-type TaskHandler struct{}
+type TaskHandler struct {
+	*usecase.GetTask
+}
 
-func NewTaskHandler() *TaskHandler {
-	return &TaskHandler{}
+func NewTaskHandler(uc *usecase.GetTask) *TaskHandler {
+	return &TaskHandler{uc}
 }
 
 func (h *TaskHandler) Index(w http.ResponseWriter, r *http.Request) {
-	repo := memory.NewInMemTaskRepository(r.Context())
-
-	u := usecase.NewGetTask(repo)
-	i := &input.GetTask{100}
-	if o, err := u.Execute(i); err != nil {
+	ctx := r.Context()
+	i := input.NewGetTask(100)
+	if o, err := h.GetTask.Execute(ctx, i); err != nil {
 		w.WriteHeader(500)
 	} else {
 		json.NewEncoder(w).Encode(o)
