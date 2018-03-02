@@ -1,4 +1,4 @@
-package model
+package task
 
 type Task struct {
 	ID          int

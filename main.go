@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	http.ListenAndServe(":8080", interfaces.NewAppHandler())
+	http.ListenAndServe(":8080", interfaces.NewApiHandler())
 }

@@ -1,7 +1,7 @@
 package repository
 
-import "github.com/shotat/ggg/domain/model"
+import "github.com/shotat/ggg/domain/model/task"
 
 type TaskRepository interface {
-	FindOne(ID int) (*model.Task, error)
+	FindOne(ID int) (*task.Task, error)
 }
