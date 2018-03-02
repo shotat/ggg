@@ -5,21 +5,21 @@ import (
 
 	"github.com/shotat/ggg/application/input"
 	"github.com/shotat/ggg/application/output"
-	"github.com/shotat/ggg/infrastructure/persistence"
+	"github.com/shotat/ggg/domain/repository"
 )
 
-func NewGetTaskUseCase() *GetTaskUseCase {
-	return &GetTaskUseCase{}
+func NewGetTaskUseCase(t repository.TaskRepository) *GetTaskUseCase {
+	return &GetTaskUseCase{t}
 }
 
-type GetTaskUseCase struct{}
+type GetTaskUseCase struct {
+	t repository.TaskRepository
+}
 
 func (u *GetTaskUseCase) Execute(q *input.Query) (*output.TaskDetail, error) {
 	query := q.Q
 	fmt.Println(query)
-	// FIXME DI
-	r := persistence.NewInMemTaskRepository()
-	t, err := r.FindOne(10)
+	t, err := u.t.FindOne(10)
 	if err != nil {
 		return nil, err
 	}
