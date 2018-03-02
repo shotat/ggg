@@ -1,8 +1,11 @@
 package main
 
-import "github.com/shotat/ggg/interfaces"
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/shotat/ggg/interfaces"
+)
 
 func main() {
-	http.ListenAndServe(":8080", &interfaces.Handler{})
+	http.ListenAndServe(":8080", interfaces.NewAppHandler())
 }

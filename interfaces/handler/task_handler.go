@@ -11,8 +11,13 @@ import (
 
 type TaskHandler struct{}
 
+func NewTaskHandler() *TaskHandler {
+	return &TaskHandler{}
+}
+
 func (h *TaskHandler) Index(w http.ResponseWriter, r *http.Request) {
 	repo := persistence.NewInMemTaskRepository(r.Context())
+
 	u := usecase.NewGetTaskUseCase(repo)
 	i := &input.Query{"TODO get params from *r"}
 	if o, err := u.Execute(i); err != nil {
