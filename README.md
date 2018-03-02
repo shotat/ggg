@@ -1,0 +1,25 @@
+TODO:
+  - [ ] DIの落とし所を考える
+
+- application
+  - input: usecaseのinput
+  - output: usecaseのoutput
+  - usecase: domainロジックの薄い調整タスク/application service
+- domain
+  - model
+    - (root entity)
+      - (entityA)
+      - (entityB)
+      - (VO)
+      - ...
+  - service
+  - repository: 各集約に対応するrepository
+- infrastructure
+  - persistence
+    - datastore: datastore用のrepository実装
+    - ...
+- interfaces
+  - api
+  - web
+  - api_handler.go
+- main.go
