@@ -2,21 +2,17 @@ package memory
 
 import (
 	"context"
-	"fmt"
 	"github.com/shotat/ggg/domain/model/task"
 	"github.com/shotat/ggg/domain/repository"
 )
 
-type InMemTaskRepository struct {
-	ctx context.Context
+type TaskRepository struct{}
+
+func NewTaskRepository() repository.TaskRepository {
+	return &TaskRepository{}
 }
 
-func NewInMemTaskRepository(ctx context.Context) repository.TaskRepository {
-	return &InMemTaskRepository{ctx}
-}
-
-func (r *InMemTaskRepository) FindOne(ID int) (*task.Task, error) {
+func (r *TaskRepository) FindOne(ctx context.Context, ID int) (*task.Task, error) {
 	t := task.NewTask(ID, "sample", "sample")
-	fmt.Println(r.ctx)
 	return t, nil
 }
