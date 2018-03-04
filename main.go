@@ -1,12 +1,20 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/shotat/ggg/interfaces"
+	"github.com/shotat/ggg/application/usecase"
+	"github.com/shotat/ggg/infrastructure/persistence/inmem"
+	"github.com/shotat/ggg/interfaces/api/server"
+	"github.com/shotat/ggg/interfaces/api/server/router"
 )
 
 func main() {
-	api := interfaces.NewApi()
-	http.ListenAndServe(":8080", api)
+	//
+	taskRepository := inmem.NewTaskRepository()
+	taskUseCase := usecase.NewTaskUseCase(taskRepository)
+
+	appUseCase := usecase.NewAppUseCase(taskUseCase)
+
+	router := router.NewRouter(appUseCase)
+	s := server.NewServer(router)
+	s.Serve()
 }
